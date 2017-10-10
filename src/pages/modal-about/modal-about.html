@@ -1,0 +1,22 @@
+<ion-content padding class="contenido">
+    <div class="formulario">
+        <div class="logo">
+            <img src="http://pfiscal.loladisenio.com.mx/chat/images/logo-white.png">
+        </div>
+        <ion-list>
+            <p class="parrafo">Introduce tu correo electrónico y se te enviara un nuevo acceso para la aplicación.</p>
+            <ion-item>
+                <ion-label floating> <ion-icon ios="ios-contact-outline" md="ios-contact-outline"></ion-icon> &nbsp;&nbsp;&nbsp;Email</ion-label>
+                <ion-input type="text" [(ngModel)] = 'usuario'></ion-input>
+            </ion-item>
+        </ion-list>
+        <br>
+        <button ion-button (click)='closeModal();' full color="secondary">
+            Aceptar
+        </button>
+
+        <div class="olvidar">
+            <span (click)='closeModal();'>Cancelar</span>
+        </div>
+    </div>
+</ion-content>

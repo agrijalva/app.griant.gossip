@@ -1,0 +1,32 @@
+<ion-content padding class="contenido">
+	<div class="formulario">
+		<div class="logo">
+			<!-- <img src="http://pfiscal.loladisenio.com.mx/chat/images/logo-white.png"> -->
+		</div>
+		<ion-list>
+		  	<ion-item>
+		    	<ion-label floating> <ion-icon ios="ios-unlock-outline" md="ios-unlock-outline"></ion-icon> &nbsp;&nbsp;&nbsp;Soy</ion-label>
+		    	<ion-select [(ngModel)]="genero">
+				    <ion-option value="M">Mujer</ion-option>
+				    <ion-option value="H">Hombre</ion-option>
+				</ion-select>
+		  	</ion-item>
+
+		  	<ion-item>
+		    	<ion-label floating> <ion-icon ios="ios-contact-outline" md="ios-contact-outline"></ion-icon> &nbsp;&nbsp;&nbsp;Edad</ion-label>
+		    	<ion-select [(ngModel)]="edad">
+				    <ion-option *ngFor="let anio of anios" 
+				    value="{{anio}}">{{ anio }}</ion-option>
+				</ion-select>
+		  	</ion-item>
+		</ion-list>
+		<br>
+	    <button ion-button (click)='Login();' [disabled] = "!isenabled" full color="secondary">
+	    	Comenzar
+	    </button>
+
+	    <div class="olvidar">
+	    	<span (click)='openModal();'>¿Qué es Gossip?</span>
+	    </div>
+	</div>
+</ion-content>

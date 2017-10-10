@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title> 
+            <ion-icon name="square"></ion-icon> GOSSIP
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only>
+                <ion-icon ios="ios-settings-outline" md="ios-settings-outline"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list no-lines>
+	    <ion-item-sliding *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]">
+	        <ion-item text-wrap>
+	            <ion-avatar item-start>
+	            	<ion-icon ios="ios-flame-outline" md="ios-flame-outline"></ion-icon>
+	            </ion-avatar>
+	            <h2>This town ain't big enough for the two of us, this town ain't big enough for the two of us!</h2>
+	            <table>
+	            	<tr>
+	            		<td colspan="4"> <p>Hace 1 hora a menos de 500 metros</p> </td>
+	            	</tr>
+	            	<tr>
+	            		<td class="btn-reaccion" width="20%">
+	            			<button ion-button color="light" clear>
+	            				<table class="btn-group" width="100%">
+	            					<tr>
+	            						<td> <ion-icon ios="ios-flame-outline" md="ios-flame-outline"></ion-icon> </td>
+	            						<td> &nbsp;<small>27</small> </td>
+	            					</tr>
+	            				</table>	            				 
+	            			</button>
+	            		</td>
+	            		<td class="btn-reaccion" width="20%">
+	            			<button ion-button color="light" clear>
+	            				<table class="btn-group" width="100%">
+	            					<tr>
+	            						<td> <ion-icon ios="ios-thumbs-up-outline" md="ios-thumbs-up-outline"></ion-icon> </td>
+	            						<td> &nbsp;<small>7</small> </td>
+	            					</tr>
+	            				</table>
+	            			</button>
+	            		</td>
+	            		<td class="btn-reaccion" width="20%">
+	            			<button ion-button color="light" clear>
+	            				<table class="btn-group" width="100%">
+	            					<tr>
+	            						<td> <ion-icon ios="ios-star-outline" md="ios-star-outline"></ion-icon> </td>
+	            					</tr>
+	            				</table>
+	            			</button>
+	            		</td>
+	            		<td class="btn-reaccion" width="40%"> &nbsp; </td>
+	            		<td class="btn-reaccion" width="25%">
+	            			<button ion-button color="light" clear>
+	            				<table class="btn-group" width="100%">
+	            					<tr>
+	            						<td> <ion-icon ios="ios-share" md="md-share"></ion-icon> </td>
+	            					</tr>
+	            				</table>
+	            			</button>
+	            		</td>
+	            	</tr>
+	            </table>
+	        </ion-item>
+	        <ion-item-options side="left">
+	            <button ion-button color="primary">
+	                <ion-icon name="text"></ion-icon>
+	                Text
+	            </button>
+	            <!-- <button ion-button color="secondary">
+	                <ion-icon name="call"></ion-icon>
+	                Call
+	            </button> -->
+	        </ion-item-options>
+	        <ion-item-options side="right">
+	            <button ion-button color="primary">
+	                <ion-icon name="mail"></ion-icon>
+	                Email
+	            </button>
+	        </ion-item-options>
+	    </ion-item-sliding>
+	</ion-list>
+</ion-content>
