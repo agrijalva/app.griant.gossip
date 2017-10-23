@@ -9,6 +9,8 @@ import { NavController, AlertController, ModalController, ToastController  } fro
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/timeout';
 
+import { HTTP } from '@ionic-native/http';
+
 // import { PedidoPage } from '../pedido/pedido';
 // import { SettingsPage } from '../settings/settings';
 import { HomePage } from '../home/home';
@@ -24,12 +26,14 @@ export class LoginPage {
     edad: string  = ''; // soycliente
     socketHost:any;
     anios:any         = [];
+    url: any = "http://gossip.griant.mx/restapi/v1/index.php";
 
   	constructor( public navCtrl: NavController, 
                  public modalCtrl: ModalController, 
                  public alertCtrl: AlertController, 
                  // public http: Http, 
-                 public toastCtrl: ToastController ){
+                 public toastCtrl: ToastController,
+                 private http: HTTP, ){
         // localStorage.setItem( "API_Path", "http://localhost/asesoria/restapi/v1/index.php" );
         // localStorage.setItem( "API_Path", "http://pfiscal.nutricionintegral.com.mx/asesoria/restapi/v1/index.php" );
         // localStorage.setItem( "API_Path", "http://asesorias.griant.mx/asesoria/restapi/v1/index.php" );
@@ -51,11 +55,35 @@ export class LoginPage {
             this.alert( 'Gossip', 'Porporciona tu edad' );
         }
         else{
-            localStorage.setItem( "GOS_login", "1" );
-            localStorage.setItem( "GOS_genero", this.genero );
-            localStorage.setItem( "GOS_edad", this.edad );
-            this.alert( 'Gossip', 'Accediendo' );
-            this.navCtrl.setRoot( HomePage );
+            // localStorage.setItem( "GOS_login", "1" );
+            // localStorage.setItem( "GOS_genero", this.genero );
+            // localStorage.setItem( "GOS_edad", this.edad );
+            // this.alert( 'Gossip', 'Accediendo' );
+            // this.navCtrl.setRoot( HomePage );
+            console.log( this.url );
+            console.log( this.edad );
+            console.log( this.genero );
+            console.log( this.url + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero );
+
+            let body = {
+                edad: this.edad,
+                genero: this.genero,
+            };
+            this.http.post(this.url, body, {})
+            .then(data => {
+                 this.alert( 'Then', 'Estamos en then' );
+                let usuario = JSON.parse(data.data);
+                if( usuario['error'] == "" ){
+                    this.alert( 'Buena', data );
+                }else{
+                  this.alert( 'Mala', data );
+                }
+            })
+            .catch(error => {
+                console.log('error');
+                this.alert( 'error', error );
+                console.log(JSON.stringify(error));
+            });
         }
     }
 
