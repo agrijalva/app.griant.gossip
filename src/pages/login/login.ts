@@ -7,9 +7,6 @@ import { NavController, AlertController, ModalController, ToastController  } fro
 // Imports para Http Request
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/timeout';
-
-//import { HTTP } from '@ionic-native/http';
 
 // import { PedidoPage } from '../pedido/pedido';
 // import { SettingsPage } from '../settings/settings';
@@ -34,7 +31,7 @@ export class LoginPage {
                  public alertCtrl: AlertController, 
                  // public http: Http, 
                  public toastCtrl: ToastController,
-                 private http: Http, ){
+                 private http: Http){
         // localStorage.setItem( "API_Path", "http://localhost/asesoria/restapi/v1/index.php" );
         // localStorage.setItem( "API_Path", "http://pfiscal.nutricionintegral.com.mx/asesoria/restapi/v1/index.php" );
         // localStorage.setItem( "API_Path", "http://asesorias.griant.mx/asesoria/restapi/v1/index.php" );
@@ -56,29 +53,46 @@ export class LoginPage {
             this.alert( 'Gossip', 'Porporciona tu edad' );
         }
         else{
+
             // localStorage.setItem( "GOS_login", "1" );
             // localStorage.setItem( "GOS_genero", this.genero );
             // localStorage.setItem( "GOS_edad", this.edad );
             // this.alert( 'Gossip', 'Accediendo' );
             // this.navCtrl.setRoot( HomePage );
-            console.log( this.webService );
-            console.log( this.edad );
-            console.log( this.genero );
-            console.log( this.url + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero );
+            this.alert( 'URL', this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero );
+            let url = this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero;
+            this.http.get(url).map(res => res.json()).subscribe(data => {
+                let alert = this.alertCtrl.create({
+                    title: 'Mensaje',
+                    subTitle: data.msg,
+                    buttons: [{
+                        text: 'Aceptar',
+                        handler: () => {
 
-            this.url = this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero;
-            console.log(this.url);
-            this.http.get(this.url).map(res => res.json()).subscribe(data => {
-            let usuario = JSON.parse(data);
-            let alert = this.alertCtrl.create({
-              title: 'Login aqui',
-              subTitle: usuario,
-              buttons: ['Aceptar']
-              });
-              alert.present();
+                        }
+                    }]
+                });
 
-            });
+                if (data.success) {
+                    alert.present();
+                } else {
+                    alert.present();
+                }
+        })
+            // this.alert( 'Else', "Antes de la url" );
+            // this.url = this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero;
+            // this.alert( 'URL', this.url );
+            // this.http.get(this.url).map(res => res.json())
+            //     .subscribe(data => {
+            //         let usuario = JSON.parse(data);
+            //         this.alert( 'Else', "Dentro del get" );
+            //     },
+            //     err => {
+            //         console.log("Valio");
+            //     });
 
+            // this.alert( 'Else', "Depues de get1 err" );
+            
             // let body = {
             //     edad: this.edad,
             //     genero: this.genero,
@@ -94,10 +108,12 @@ export class LoginPage {
             //     }
             // })
             // .catch(error => {
-            //     console.log('error');
+            //     this.alert( 'ERROR', "En el error" );
             //     this.alert( 'error', error );
             //     console.log(JSON.stringify(error));
             // });
+
+
         }
     }
 
