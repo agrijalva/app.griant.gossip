@@ -27,9 +27,9 @@ export class LoginPage {
     url: any = "";
 
   	constructor( public navCtrl: NavController,
-                 public modalCtrl: ModalController, 
-                 public alertCtrl: AlertController, 
-                 // public http: Http, 
+                 public modalCtrl: ModalController,
+                 public alertCtrl: AlertController,
+                 // public http: Http,
                  public toastCtrl: ToastController,
                  private http: Http){
         // localStorage.setItem( "API_Path", "http://localhost/asesoria/restapi/v1/index.php" );
@@ -59,12 +59,13 @@ export class LoginPage {
             // localStorage.setItem( "GOS_edad", this.edad );
             // this.alert( 'Gossip', 'Accediendo' );
             // this.navCtrl.setRoot( HomePage );
-            this.alert( 'URL', this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero );
+            //this.alert( 'URL', this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero );
             let url = this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero;
             this.http.get(url).map(res => res.json()).subscribe(data => {
+                let usuario = JSON.parse(data.data);
                 let alert = this.alertCtrl.create({
                     title: 'Mensaje',
-                    subTitle: data.msg,
+                    subTitle: usuario,
                     buttons: [{
                         text: 'Aceptar',
                         handler: () => {
@@ -75,44 +76,11 @@ export class LoginPage {
 
                 if (data.success) {
                     alert.present();
+                    this.navCtrl.setRoot( HomePage );
                 } else {
                     alert.present();
                 }
         })
-            // this.alert( 'Else', "Antes de la url" );
-            // this.url = this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero;
-            // this.alert( 'URL', this.url );
-            // this.http.get(this.url).map(res => res.json())
-            //     .subscribe(data => {
-            //         let usuario = JSON.parse(data);
-            //         this.alert( 'Else', "Dentro del get" );
-            //     },
-            //     err => {
-            //         console.log("Valio");
-            //     });
-
-            // this.alert( 'Else', "Depues de get1 err" );
-            
-            // let body = {
-            //     edad: this.edad,
-            //     genero: this.genero,
-            // };
-            // this.http.post(this.url, body, {})
-            // .then(data => {
-            //      this.alert( 'Then', 'Estamos en then' );
-            //     let usuario = JSON.parse(data.data);
-            //     if( usuario['error'] == "" ){
-            //         this.alert( 'Buena', data );
-            //     }else{
-            //       this.alert( 'Mala', data );
-            //     }
-            // })
-            // .catch(error => {
-            //     this.alert( 'ERROR', "En el error" );
-            //     this.alert( 'error', error );
-            //     console.log(JSON.stringify(error));
-            // });
-
 
         }
     }
