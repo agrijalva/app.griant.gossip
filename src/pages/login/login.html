@@ -7,8 +7,8 @@
 		  	<ion-item>
 		    	<ion-label floating> <ion-icon ios="ios-unlock-outline" md="ios-unlock-outline"></ion-icon> &nbsp;&nbsp;&nbsp;Soy</ion-label>
 		    	<ion-select [(ngModel)]="genero">
-				    <ion-option value="0">Mujer</ion-option>
-				    <ion-option value="1">Hombre</ion-option>
+				    <ion-option value="1">Mujer</ion-option>
+				    <ion-option value="2">Hombre</ion-option>
 				</ion-select>
 		  	</ion-item>
 
@@ -21,7 +21,7 @@
 		  	</ion-item>
 		</ion-list>
 		<br>
-	    <button ion-button (click)='Login();' [disabled] = "!isenabled" full color="secondary">
+	    <button ion-button (click)='login();' full color="secondary">
 	    	Comenzar
 	    </button>
 

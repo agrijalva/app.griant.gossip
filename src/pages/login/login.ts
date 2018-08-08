@@ -1,94 +1,80 @@
 import { Component } from '@angular/core';
-// import { Device } from '@ionic-native/device';
-// import { Network } from '@ionic-native/network';
-// import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { NavController, AlertController, ModalController, ToastController  } from 'ionic-angular';
-
-// Imports para Http Request
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-
-// import { PedidoPage } from '../pedido/pedido';
-// import { SettingsPage } from '../settings/settings';
-import { HomePage } from '../home/home';
+import {
+    NavController,
+    AlertController,
+    ModalController,
+    ToastController,
+    LoadingController
+} from 'ionic-angular';
 import { modalAboutPage } from '../modal-about/modal-about';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+
+import { HomePage } from '../home/home';
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+    selector: 'page-login',
+    templateUrl: 'login.html'
 })
 export class LoginPage {
-	isenabled:boolean = true;
-    genero: string     = ''; // alex_9abril@hotmail.com
-    edad: string  = ''; // soycliente
-    socketHost:any;
-    anios:any         = [];
-    webService: any = "http://gossip.griant.mx/restapi/v1/index.php";
-    url: any = "";
+    public genero: string = '';
+    public edad: string = '';
+    public anios: any = [];
+    public webService: any = "http://gossip.griant.mx/restapi/v1/index.php";
+    public loginData: any;
 
-  	constructor( public navCtrl: NavController,
-                 public modalCtrl: ModalController,
-                 public alertCtrl: AlertController,
-                 // public http: Http,
-                 public toastCtrl: ToastController,
-                 private http: Http){
-        // localStorage.setItem( "API_Path", "http://localhost/asesoria/restapi/v1/index.php" );
-        // localStorage.setItem( "API_Path", "http://pfiscal.nutricionintegral.com.mx/asesoria/restapi/v1/index.php" );
-        // localStorage.setItem( "API_Path", "http://asesorias.griant.mx/asesoria/restapi/v1/index.php" );
-        // localStorage.setItem( "API_Path", "http://pfiscal.loladisenio.com.mx/restapi/v1/index.php" );
-        if( localStorage.getItem( "GOS_login" ) == "1" ){
-            this.navCtrl.setRoot( HomePage );
+    constructor(
+        public navCtrl: NavController,
+        public modalCtrl: ModalController,
+        public alertCtrl: AlertController,
+        public toastCtrl: ToastController,
+        private _http: HttpClient,
+        public loadingCtrl: LoadingController) {
+
+        if (localStorage.getItem("GOS_login") == "1") {
+            this.navCtrl.setRoot(HomePage);
         }
 
-        for( let i = 12; i <= 70; i++  ){
-            this.anios.push( i );
+        for (let i = 12; i <= 70; i++) {
+            this.anios.push(i);
         }
     }
 
-    Login = (): void => {
-        if( this.genero == '' ){
-            this.alert( 'Gossip', 'Proporciona tu genero' );
-        }
-        else if( this.edad == '' ){
-            this.alert( 'Gossip', 'Porporciona tu edad' );
-        }
-        else{
+    private urlLogin = this.webService + '/usuario/registro/';
 
-            // localStorage.setItem( "GOS_login", "1" );
-            // localStorage.setItem( "GOS_genero", this.genero );
-            // localStorage.setItem( "GOS_edad", this.edad );
-            // this.alert( 'Gossip', 'Accediendo' );
-            // this.navCtrl.setRoot( HomePage );
-            //this.alert( 'URL', this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero );
-            let url = this.webService + "/usuario/" + "registro/?edad=" + this.edad + "&genero=" + this.genero;
-            this.http.get(url).map(res => res.json()).subscribe(data => {
-                let usuario = JSON.parse(data.data);
-                let alert = this.alertCtrl.create({
-                    title: 'Mensaje',
-                    subTitle: usuario,
-                    buttons: [{
-                        text: 'Aceptar',
-                        handler: () => {
-
-                        }
-                    }]
-                });
-
-                if (data.success) {
-                    alert.present();
-                    this.navCtrl.setRoot( HomePage );
-                } else {
-                    alert.present();
-                }
-        })
-
-        }
-    }
+    login() {
+        if (this.genero == '' && this.edad == '') {
+            this.alert('Gossip', 'Proporciona tus credenciales');
+        } else if (this.genero != '' && this.edad == '') {
+            this.alert('Gossip', 'Proporciona tu genero');
+        } else if (this.genero == '' && this.edad != '') {
+            this.alert('Gossip', 'Proporciona tu edad');
+        } else {
+            let loading = this.loadingCtrl.create({
+                content: '',
+                spinner: 'crescent'
+            });
+            loading.present();
+            let Params = new HttpParams;
+            Params = Params.append('edad', this.edad);
+            Params = Params.append('genero', this.genero);
+            this._http.get(this.urlLogin, { params: Params }).subscribe(data => {
+                this.loginData = data;
+                if (this.loginData.success) {
+                    localStorage.removeItem('userData')
+                    loading.dismiss();
+                    console.log( 'this.loginData',  this.loginData.data[0] );
+                    localStorage.setItem('userData', JSON.stringify(this.loginData.data[0]));
+                    this.navCtrl.setRoot(HomePage);
+                };
+            });
+        };
+    };
 
     openModal() {
         let myModal = this.modalCtrl.create(modalAboutPage);
         myModal.present();
-    }
+    };
 
     showToast(text: string) {
         let toast = this.toastCtrl.create({
@@ -98,14 +84,14 @@ export class LoginPage {
         });
 
         toast.present(toast);
-    }
+    };
 
-    alert( title, subTitle ){
+    alert(title, subTitle) {
         let alert = this.alertCtrl.create({
             title: title,
             subTitle: subTitle,
             buttons: ['OK']
         });
         alert.present();
-    }
+    };
 }
