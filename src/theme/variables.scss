@@ -5,7 +5,15 @@
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
+@font-face {
+  font-family: 'snippet';
+  src: url('../assets/fonts/snippet/Snippet.ttf') format('truetype');
+  };
 
+  @font-face {
+    font-family: 'roboto';
+    src: url('../assets/fonts/roboto/Roboto-Regular.ttf') format('truetype');
+    };
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
@@ -85,5 +93,4 @@ $colors: (
 // --------------------------------------------------
 
 @import "roboto";
-//@import "snippet";
 @import "noto-sans";
