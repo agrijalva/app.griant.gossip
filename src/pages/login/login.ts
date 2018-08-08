@@ -63,7 +63,6 @@ export class LoginPage {
                 if (this.loginData.success) {
                     localStorage.removeItem('userData')
                     loading.dismiss();
-                    console.log( 'this.loginData',  this.loginData.data[0] );
                     localStorage.setItem('userData', JSON.stringify(this.loginData.data[0]));
                     this.navCtrl.setRoot(HomePage);
                 };
