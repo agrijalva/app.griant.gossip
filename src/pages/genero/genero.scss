@@ -1,0 +1,28 @@
+page-genero {
+
+    .login-box {
+        padding: 20px 20px 0px 20px;
+    };
+
+    ion-row {
+        align-items: center;
+        text-align: center;
+    };
+
+    .btnMujer{
+        width: 150px;
+        height: 150px;
+        color: #000;
+        //background-image: url('../../assets/image/general/logo1.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    };
+
+    ion-grid{
+        align-items: center;
+    };
+
+    .rowBtns{
+        margin-top: 50%;
+    }
+}

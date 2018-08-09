@@ -11,6 +11,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 import { HomePage } from '../home/home';
+import { GeneroPage } from '../genero/genero';
 
 @Component({
     selector: 'page-login',
@@ -43,31 +44,32 @@ export class LoginPage {
     private urlLogin = this.webService + '/usuario/registro/';
 
     login() {
-        if (this.genero == '' && this.edad == '') {
-            this.alert('Gossip', 'Proporciona tus credenciales');
-        } else if (this.genero != '' && this.edad == '') {
-            this.alert('Gossip', 'Proporciona tu genero');
-        } else if (this.genero == '' && this.edad != '') {
-            this.alert('Gossip', 'Proporciona tu edad');
-        } else {
-            let loading = this.loadingCtrl.create({
-                content: '',
-                spinner: 'crescent'
-            });
-            loading.present();
-            let Params = new HttpParams;
-            Params = Params.append('edad', this.edad);
-            Params = Params.append('genero', this.genero);
-            this._http.get(this.urlLogin, { params: Params }).subscribe(data => {
-                this.loginData = data;
-                if (this.loginData.success) {
-                    localStorage.removeItem('userData')
-                    loading.dismiss();
-                    localStorage.setItem('userData', JSON.stringify(this.loginData.data[0]));
-                    this.navCtrl.setRoot(HomePage);
-                };
-            });
-        };
+        this.navCtrl.setRoot( GeneroPage );
+        // if (this.genero == '' && this.edad == '') {
+        //     this.alert('Gossip', 'Proporciona tus credenciales');
+        // } else if (this.genero != '' && this.edad == '') {
+        //     this.alert('Gossip', 'Proporciona tu genero');
+        // } else if (this.genero == '' && this.edad != '') {
+        //     this.alert('Gossip', 'Proporciona tu edad');
+        // } else {
+        //     let loading = this.loadingCtrl.create({
+        //         content: '',
+        //         spinner: 'crescent'
+        //     });
+        //     loading.present();
+        //     let Params = new HttpParams;
+        //     Params = Params.append('edad', this.edad);
+        //     Params = Params.append('genero', this.genero);
+        //     this._http.get(this.urlLogin, { params: Params }).subscribe(data => {
+        //         this.loginData = data;
+        //         if (this.loginData.success) {
+        //             localStorage.removeItem('userData')
+        //             loading.dismiss();
+        //             localStorage.setItem('userData', JSON.stringify(this.loginData.data[0]));
+        //             this.navCtrl.setRoot(HomePage);
+        //         };
+        //     });
+        // };
     };
 
     openModal() {

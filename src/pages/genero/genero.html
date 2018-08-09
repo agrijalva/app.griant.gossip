@@ -1,0 +1,30 @@
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>genero</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content padding>
+	<div style="height: 100%; background-color: re">
+		<ion-grid>
+			<ion-row>
+				<label>REGISTRO</label>
+			</ion-row>
+			<ion-row class="rowBtns">
+				<ion-col col-6>
+					<button [ngStyle]="{'background-image': 'url(' + imageM + ')'}" ion-button class="btnMujer" (click)="switchMujer()">
+
+					</button>
+				</ion-col>
+				<ion-col col-6>
+					<button [ngStyle]="{'background-image': 'url(' + imageH + ')'}" ion-button class="btnMujer" (click)="swicthHombre()">
+
+					</button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+</ion-content>

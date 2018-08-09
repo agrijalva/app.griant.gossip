@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { GeneroPage } from '../pages/genero/genero'
 import { modalAboutPage } from '../pages/modal-about/modal-about';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { modalAboutPage } from '../pages/modal-about/modal-about';
     MyApp,
     LoginPage,
     HomePage,
-    modalAboutPage
+    modalAboutPage,
+    GeneroPage
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { modalAboutPage } from '../pages/modal-about/modal-about';
     MyApp,
     LoginPage,
     HomePage,
-    modalAboutPage
+    modalAboutPage,
+    GeneroPage
   ],
   providers: [
     StatusBar,
